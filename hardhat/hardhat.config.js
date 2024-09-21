@@ -19,5 +19,5 @@ module.exports = {
       accounts: [privatekey] //add metamask private key
     }
   },
-  solidity: "0.8.24",
+  solidity: "0.8.20",
 }

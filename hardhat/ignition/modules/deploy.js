@@ -1,23 +1,23 @@
 const { buildModule } = require("@nomicfoundation/hardhat-ignition/modules");
 
-module.exports = buildModule("MultiContractDeployment", (m) => {
-  // Deploy WalletLogin first
+module.exports = buildModule("DeployAllContracts", (m) => {
+  // Deploy WalletLogin contract
   const WalletLogin = m.contract("WalletLogin");
 
-  // Deploy CarbonToken (ERC20 Token)
+  // Deploy CarbonToken contract
   const CarbonToken = m.contract("CarbonToken");
 
-  // Deploy CarbonMarketplace, which requires the address of CarbonToken
+  // Deploy CarbonMarketplace, passing CarbonToken address to constructor
   const CarbonMarketplace = m.contract("CarbonMarketplace", {
-    args: [CarbonToken]
+    args: [CarbonToken],
   });
 
-  // Deploy ProjectDonation, which also requires the address of CarbonToken
+  // Deploy ProjectDonation, passing CarbonToken address to constructor
   const ProjectDonation = m.contract("ProjectDonation", {
-    args: [CarbonToken]
+    args: [CarbonToken],
   });
 
-  // Deploy ProjectNFT, which is an independent ERC721 contract
+  // Deploy ProjectNFT (ERC721 contract)
   const ProjectNFT = m.contract("ProjectNFT");
 
   return {
@@ -25,6 +25,6 @@ module.exports = buildModule("MultiContractDeployment", (m) => {
     CarbonToken,
     CarbonMarketplace,
     ProjectDonation,
-    ProjectNFT
+    ProjectNFT,
   };
 });

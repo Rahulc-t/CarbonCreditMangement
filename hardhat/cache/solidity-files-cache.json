@@ -2,11 +2,11 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "/home/akhil/Blockchain/CarbonCreditMangement/hardhat/contracts/CarbonMarketplace.sol": {
-      "lastModificationDate": 1726918247014,
-      "contentHash": "e745141b256feb110652bef68eebaa68",
+      "lastModificationDate": 1726929389623,
+      "contentHash": "a20cece72c973a7741b9252b494ad0b8",
       "sourceName": "contracts/CarbonMarketplace.sol",
       "solcConfig": {
-        "version": "0.8.24",
+        "version": "0.8.20",
         "settings": {
           "evmVersion": "paris",
           "optimizer": {
@@ -33,18 +33,18 @@
         "./CarbonToken.sol"
       ],
       "versionPragmas": [
-        "^0.8.20"
+        "0.8.20"
       ],
       "artifacts": [
         "CarbonMarketplace"
       ]
     },
     "/home/akhil/Blockchain/CarbonCreditMangement/hardhat/contracts/CarbonToken.sol": {
-      "lastModificationDate": 1726918043456,
-      "contentHash": "13e80544598eebe183653aa4c9496a76",
+      "lastModificationDate": 1726929374927,
+      "contentHash": "e204feb060090a3e9acebf25c97b964f",
       "sourceName": "contracts/CarbonToken.sol",
       "solcConfig": {
-        "version": "0.8.24",
+        "version": "0.8.20",
         "settings": {
           "evmVersion": "paris",
           "optimizer": {
@@ -72,7 +72,7 @@
         "@openzeppelin/contracts/access/Ownable.sol"
       ],
       "versionPragmas": [
-        "^0.8.0"
+        "0.8.20"
       ],
       "artifacts": [
         "CarbonToken"
@@ -83,7 +83,7 @@
       "contentHash": "d3c790edc9ccf808a17c5a6cd13614fd",
       "sourceName": "@openzeppelin/contracts/access/Ownable.sol",
       "solcConfig": {
-        "version": "0.8.24",
+        "version": "0.8.20",
         "settings": {
           "evmVersion": "paris",
           "optimizer": {
@@ -121,7 +121,7 @@
       "contentHash": "c6375ef25e84c90b3d15f9ec4eef218f",
       "sourceName": "@openzeppelin/contracts/token/ERC20/ERC20.sol",
       "solcConfig": {
-        "version": "0.8.24",
+        "version": "0.8.20",
         "settings": {
           "evmVersion": "paris",
           "optimizer": {
@@ -162,7 +162,7 @@
       "contentHash": "67bfbc07588eb8683b3fd8f6f909563e",
       "sourceName": "@openzeppelin/contracts/utils/Context.sol",
       "solcConfig": {
-        "version": "0.8.24",
+        "version": "0.8.20",
         "settings": {
           "evmVersion": "paris",
           "optimizer": {
@@ -198,7 +198,7 @@
       "contentHash": "4aefc698f77ecbace7f401257dfe182d",
       "sourceName": "@openzeppelin/contracts/interfaces/draft-IERC6093.sol",
       "solcConfig": {
-        "version": "0.8.24",
+        "version": "0.8.20",
         "settings": {
           "evmVersion": "paris",
           "optimizer": {
@@ -236,7 +236,7 @@
       "contentHash": "5517c8678c18eb1a8ba58810e7ca39ca",
       "sourceName": "@openzeppelin/contracts/token/ERC20/IERC20.sol",
       "solcConfig": {
-        "version": "0.8.24",
+        "version": "0.8.20",
         "settings": {
           "evmVersion": "paris",
           "optimizer": {
@@ -272,7 +272,7 @@
       "contentHash": "4c02fa6f7ae7b6c289cef80424f0c875",
       "sourceName": "@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol",
       "solcConfig": {
-        "version": "0.8.24",
+        "version": "0.8.20",
         "settings": {
           "evmVersion": "paris",
           "optimizer": {
@@ -306,11 +306,11 @@
       ]
     },
     "/home/akhil/Blockchain/CarbonCreditMangement/hardhat/contracts/ProjectDonation.sol": {
-      "lastModificationDate": 1726918900108,
-      "contentHash": "7bdf8ce3c07e1ee992a970989a7f7a21",
+      "lastModificationDate": 1726929370773,
+      "contentHash": "11b2de363ec4f23b626bbd835a165d50",
       "sourceName": "contracts/ProjectDonation.sol",
       "solcConfig": {
-        "version": "0.8.24",
+        "version": "0.8.20",
         "settings": {
           "evmVersion": "paris",
           "optimizer": {
@@ -337,7 +337,7 @@
         "./CarbonToken.sol"
       ],
       "versionPragmas": [
-        "^0.8.0"
+        "0.8.20"
       ],
       "artifacts": [
         "ProjectDonation"
@@ -348,7 +348,7 @@
       "contentHash": "1e64e2ad597dc5b2dae11346502baad4",
       "sourceName": "@openzeppelin/contracts/token/ERC721/ERC721.sol",
       "solcConfig": {
-        "version": "0.8.24",
+        "version": "0.8.20",
         "settings": {
           "evmVersion": "paris",
           "optimizer": {
@@ -392,7 +392,7 @@
       "contentHash": "ba57ff4ddf1d9cae9d2009792795b7f6",
       "sourceName": "@openzeppelin/contracts/utils/Strings.sol",
       "solcConfig": {
-        "version": "0.8.24",
+        "version": "0.8.20",
         "settings": {
           "evmVersion": "paris",
           "optimizer": {
@@ -431,7 +431,7 @@
       "contentHash": "6a55c353946e471d9792965d06208295",
       "sourceName": "@openzeppelin/contracts/utils/introspection/ERC165.sol",
       "solcConfig": {
-        "version": "0.8.24",
+        "version": "0.8.20",
         "settings": {
           "evmVersion": "paris",
           "optimizer": {
@@ -469,7 +469,7 @@
       "contentHash": "5df8fdb527e563085847cad29e3c5f2e",
       "sourceName": "@openzeppelin/contracts/token/ERC721/IERC721.sol",
       "solcConfig": {
-        "version": "0.8.24",
+        "version": "0.8.20",
         "settings": {
           "evmVersion": "paris",
           "optimizer": {
@@ -507,7 +507,7 @@
       "contentHash": "fc8a9841f4bdd6329c26a00d5e75f4b3",
       "sourceName": "@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol",
       "solcConfig": {
-        "version": "0.8.24",
+        "version": "0.8.20",
         "settings": {
           "evmVersion": "paris",
           "optimizer": {
@@ -543,7 +543,7 @@
       "contentHash": "12c206f185cb951213799561fdcaa40d",
       "sourceName": "@openzeppelin/contracts/token/ERC721/extensions/IERC721Metadata.sol",
       "solcConfig": {
-        "version": "0.8.24",
+        "version": "0.8.20",
         "settings": {
           "evmVersion": "paris",
           "optimizer": {
@@ -581,7 +581,7 @@
       "contentHash": "718fa8ba0ff269c92e364c1429d9de57",
       "sourceName": "@openzeppelin/contracts/utils/math/Math.sol",
       "solcConfig": {
-        "version": "0.8.24",
+        "version": "0.8.20",
         "settings": {
           "evmVersion": "paris",
           "optimizer": {
@@ -617,7 +617,7 @@
       "contentHash": "b6c6bdc7aaca4fe5b680760a72e09d3e",
       "sourceName": "@openzeppelin/contracts/utils/math/SignedMath.sol",
       "solcConfig": {
-        "version": "0.8.24",
+        "version": "0.8.20",
         "settings": {
           "evmVersion": "paris",
           "optimizer": {
@@ -653,7 +653,7 @@
       "contentHash": "de0163561b417b800d01749cbbe2147e",
       "sourceName": "@openzeppelin/contracts/utils/introspection/IERC165.sol",
       "solcConfig": {
-        "version": "0.8.24",
+        "version": "0.8.20",
         "settings": {
           "evmVersion": "paris",
           "optimizer": {
@@ -689,7 +689,7 @@
       "contentHash": "f808b485ee0cdc6768ee8385ae5f9a2a",
       "sourceName": "@openzeppelin/contracts/interfaces/IERC165.sol",
       "solcConfig": {
-        "version": "0.8.24",
+        "version": "0.8.20",
         "settings": {
           "evmVersion": "paris",
           "optimizer": {
@@ -725,7 +725,7 @@
       "contentHash": "7f130e0d70179d683e9b9df0dda38a51",
       "sourceName": "@openzeppelin/contracts/interfaces/IERC4906.sol",
       "solcConfig": {
-        "version": "0.8.24",
+        "version": "0.8.20",
         "settings": {
           "evmVersion": "paris",
           "optimizer": {
@@ -764,7 +764,7 @@
       "contentHash": "d8d23fc2f55ed934d1a1b91c9afd8526",
       "sourceName": "@openzeppelin/contracts/interfaces/IERC721.sol",
       "solcConfig": {
-        "version": "0.8.24",
+        "version": "0.8.20",
         "settings": {
           "evmVersion": "paris",
           "optimizer": {
@@ -800,7 +800,7 @@
       "contentHash": "50d770b698931f015309e77a750f54f6",
       "sourceName": "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol",
       "solcConfig": {
-        "version": "0.8.24",
+        "version": "0.8.20",
         "settings": {
           "evmVersion": "paris",
           "optimizer": {
@@ -837,11 +837,11 @@
       ]
     },
     "/home/akhil/Blockchain/CarbonCreditMangement/hardhat/contracts/ProjectNFT.sol": {
-      "lastModificationDate": 1726918474823,
-      "contentHash": "2db37b3171f562ccace905b9ad0223de",
+      "lastModificationDate": 1726929380208,
+      "contentHash": "2b30e642819f3611282e1f86a49ab11c",
       "sourceName": "contracts/ProjectNFT.sol",
       "solcConfig": {
-        "version": "0.8.24",
+        "version": "0.8.20",
         "settings": {
           "evmVersion": "paris",
           "optimizer": {
@@ -868,18 +868,18 @@
         "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol"
       ],
       "versionPragmas": [
-        "^0.8.20"
+        "0.8.20"
       ],
       "artifacts": [
         "ProjectNFT"
       ]
     },
     "/home/akhil/Blockchain/CarbonCreditMangement/hardhat/contracts/WalletLogin.sol": {
-      "lastModificationDate": 1726918163194,
-      "contentHash": "8591f74cc657eaabdab17c71a95ce8a8",
+      "lastModificationDate": 1726929384947,
+      "contentHash": "ad4a3338005315f7899fd096b07852af",
       "sourceName": "contracts/WalletLogin.sol",
       "solcConfig": {
-        "version": "0.8.24",
+        "version": "0.8.20",
         "settings": {
           "evmVersion": "paris",
           "optimizer": {
@@ -904,7 +904,7 @@
       },
       "imports": [],
       "versionPragmas": [
-        "^0.8.20"
+        "0.8.20"
       ],
       "artifacts": [
         "WalletLogin"
