@@ -7,6 +7,7 @@ import AuthLayout from './layouts/AuthLayout'
 import Homepage from './pages/Homepage'
 import ProjectNFTPage from './pages/ProjectNFTPage'
 import CarbRequestPage from './pages/CarbRequestPage'
+import SubmitDonation from './pages/SubmitDonation'
 function App() {
   const router=createBrowserRouter(createRoutesFromElements( 
     <>
@@ -18,6 +19,8 @@ function App() {
   <Route path="/homepage" element={<Homepage/>}/>
   <Route path='/list-project' element={<ProjectNFTPage/>}/>
   <Route path="/submit-carbon-token" element={<CarbRequestPage/>}/>
+  <Route path="/list-donation" element={<SubmitDonation/>}/>
+
 </Route>
 </>))
   return (
