@@ -909,6 +909,42 @@
       "artifacts": [
         "WalletLogin"
       ]
+    },
+    "/home/akhil/Blockchain/CarbonCreditMangement/hardhat/contracts/CarbonTokenApproval.sol": {
+      "lastModificationDate": 1726943984942,
+      "contentHash": "4301ba6906fea20e4c59ac80bc88d15d",
+      "sourceName": "contracts/CarbonTokenApproval.sol",
+      "solcConfig": {
+        "version": "0.8.20",
+        "settings": {
+          "evmVersion": "paris",
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.20"
+      ],
+      "artifacts": [
+        "CarbonTokenApproval"
+      ]
     }
   }
 }
