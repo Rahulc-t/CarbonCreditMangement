@@ -120,7 +120,7 @@ const ProjectNFTPage = () => {
                         <h3 className="font-bold">{nft.name}</h3>
                         <p>{nft.description}</p>
                         <img src={`https://ipfs.io/ipfs/${nft.ipfsHash}`} alt={nft.name} className="w-full h-auto" />
-                        <p>Price: {nft.price} Wei</p>
+                        <p>Price: {parseFloat(nft.price)} Wei</p>
                         <button onClick={() => buyNFT(nft.tokenId, nft.price)} className="bg-green-500 text-white p-2 mt-2">Buy NFT</button>
                     </div>
                 ))}
