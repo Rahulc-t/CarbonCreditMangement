@@ -1,31 +1,40 @@
 import React, { useState, useEffect } from 'react';
 import { ethers } from 'ethers';
-import {abi} from '../scdata/CarbonToken.json'; // ABI of the CarbonToken contract
-import{CarbonTokenCarbonToken} from "../scdata/deployed_addresses.json"
+import { useNavigate } from 'react-router-dom'; // For navigating to the login page
+import { abi } from '../scdata/CarbonToken.json'; // ABI of the CarbonToken contract
+import { CarbonTokenCarbonToken } from "../scdata/deployed_addresses.json";
 
-const Navbar = ({ username, onLogout }) => {
+const Navbar = () => {
   const [tokenBalance, setTokenBalance] = useState(0n); // Using BigInt for balance
   const [provider, setProvider] = useState(null);
   const [contract, setContract] = useState(null);
-  const carbonTokenAddress = "0xYourContractAddress"; // Replace with your deployed contract address
+  const [username, setUsername] = useState('');
+  const [userAddress, setUserAddress] = useState(''); // Store user's wallet address
+  const navigate = useNavigate(); // Hook for navigation
 
   // Load the contract and user's token balance
   useEffect(() => {
     const loadProviderAndContract = async () => {
-      // Check if Web3 is available (MetaMask)
       if (window.ethereum) {
-        const _provider = new ethers.BrowserProvider(window.ethereum);
-        setProvider(_provider);
-        await _provider.send('eth_requestAccounts', []); // Request wallet connection
+        try {
+          const _provider = new ethers.BrowserProvider(window.ethereum);
+          setProvider(_provider);
+          await _provider.send('eth_requestAccounts', []); // Request wallet connection
 
-        const signer = await _provider.getSigner();
-        const carbonTokenContract = new ethers.Contract(CarbonTokenCarbonToken, abi, signer);
-        setContract(carbonTokenContract);
+          const signer = await _provider.getSigner();
+          const address = await signer.getAddress();
+          setUserAddress(address); // Store user address as username
+          setUsername(address); // Set address as the username
 
-        // Fetch the token balance for the connected user
-        const userAddress = await signer.getAddress();
-        const balance = await carbonTokenContract.balanceOf(userAddress);
-        setTokenBalance(balance);
+          const carbonTokenContract = new ethers.Contract(CarbonTokenCarbonToken, abi, signer);
+          setContract(carbonTokenContract);
+
+          // Fetch the token balance for the connected user
+          const balance = await carbonTokenContract.balanceOf(address);
+          setTokenBalance(balance);
+        } catch (error) {
+          console.error("Error loading provider or contract", error);
+        }
       } else {
         console.log('Please install MetaMask.');
       }
@@ -33,6 +42,14 @@ const Navbar = ({ username, onLogout }) => {
 
     loadProviderAndContract();
   }, []);
+
+  // Handle logout and redirect to login page
+  const handleLogout = () => {
+    setProvider(null); // Clear the provider
+    setContract(null); // Clear the contract
+    setUserAddress(''); // Clear the user address
+    navigate('/'); // Redirect to login page
+  };
 
   // Convert BigInt balance to human-readable format (assuming 18 decimals)
   const formattedBalance = ethers.formatUnits(tokenBalance, 18);
@@ -44,9 +61,9 @@ const Navbar = ({ username, onLogout }) => {
         <p>{`Your Balance: ${formattedBalance} CARB`}</p>
       </div>
       <div className="text-white flex items-center space-x-4">
-        <span>{`Hello, ${username}`}</span>
+        <span>{`Hello, ${userAddress ? userAddress : 'Guest'}`}</span>
         <button 
-          onClick={onLogout} 
+          onClick={handleLogout} 
           className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
         >
           Logout
