@@ -5,6 +5,7 @@ import{createBrowserRouter,createRoutesFromElements,RouterProvider,Route} from "
 import LoginPage from './pages/LoginPage'
 import AuthLayout from './layouts/AuthLayout'
 import Homepage from './pages/Homepage'
+import ProjectNFTPage from './pages/ProjectNFTPage'
 function App() {
   const router=createBrowserRouter(createRoutesFromElements( 
     <>
@@ -14,6 +15,7 @@ function App() {
 </Route>
 <Route path="/" element={<UserLayout/>}>
   <Route path="/homepage" element={<Homepage/>}/>
+  <Route path='/list-project' element={<ProjectNFTPage/>}/>
 </Route>
 </>))
   return (
