@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ethers } from 'ethers';
-import { useNavigate } from 'react-router-dom'; // For navigating to the login page
+import { useNavigate } from 'react-router-dom'; // For navigating to the login and home pages
 import { abi } from '../scdata/CarbonToken.json'; // ABI of the CarbonToken contract
 import { CarbonTokenCarbonToken } from "../scdata/deployed_addresses.json";
 
@@ -51,6 +51,11 @@ const Navbar = () => {
     navigate('/'); // Redirect to login page
   };
 
+  // Navigate to the home page
+  const goToHome = () => {
+    navigate('/homepage');
+  };
+
   // Convert BigInt balance to human-readable format (assuming 18 decimals)
   const formattedBalance = ethers.formatUnits(tokenBalance, 18);
 
@@ -61,6 +66,12 @@ const Navbar = () => {
         <p>{`Your Balance: ${formattedBalance} CARB`}</p>
       </div>
       <div className="text-white flex items-center space-x-4">
+        <button 
+          onClick={goToHome} 
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        >
+          Home
+        </button>
         <span>{`Hello, ${userAddress ? userAddress : 'Guest'}`}</span>
         <button 
           onClick={handleLogout} 
