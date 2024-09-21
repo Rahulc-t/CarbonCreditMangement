@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { ethers } from 'ethers';
 import ProjectNFTABI from '../scdata/ProjectNFT.json'; // Replace with your ABI file
 
+
 const ProjectNFTPage = () => {
     const [account, setAccount] = useState('');
     const [projectNFTs, setProjectNFTs] = useState([]);
