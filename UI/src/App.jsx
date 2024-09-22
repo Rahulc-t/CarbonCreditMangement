@@ -10,6 +10,7 @@ import CarbRequestPage from './pages/CarbRequestPage'
 import SubmitDonation from './pages/SubmitDonation'
 import ViewAndDonate from './pages/ViewAndDonate'
 import ProjectSubmition from './pages/ProjectSubmition'
+import AdminDashboard from './pages/AdminDashboard'
 function App() {
   const router=createBrowserRouter(createRoutesFromElements( 
     <>
@@ -28,7 +29,7 @@ function App() {
 
 
 </Route>
-<Route path='/admin-dashboard' />
+<Route path='/admin-dashboard' element={<AdminDashboard/>} />
 </>))
   return (
     <>
