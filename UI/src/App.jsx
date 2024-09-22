@@ -22,6 +22,7 @@ function App() {
   <Route path="/list-donation" element={<SubmitDonation/>}/>
 
 </Route>
+<Route path='/admin-dashboard' />
 </>))
   return (
     <>

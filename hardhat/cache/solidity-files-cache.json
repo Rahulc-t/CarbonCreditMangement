@@ -945,6 +945,42 @@
       "artifacts": [
         "CarbonTokenApproval"
       ]
+    },
+    "/home/akhil/Blockchain/CarbonCreditMangement/hardhat/contracts/ProjectSubmission.sol": {
+      "lastModificationDate": 1726969633085,
+      "contentHash": "42ca03d2c6a92f96ed10dda7859535db",
+      "sourceName": "contracts/ProjectSubmission.sol",
+      "solcConfig": {
+        "version": "0.8.20",
+        "settings": {
+          "evmVersion": "paris",
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.20"
+      ],
+      "artifacts": [
+        "ProjectSubmission"
+      ]
     }
   }
 }
