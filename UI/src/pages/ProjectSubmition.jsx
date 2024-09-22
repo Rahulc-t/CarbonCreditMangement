@@ -1,15 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { ethers } from 'ethers';
-import  ProjectSubmissionABI from '../scdata/ProjectSubmission.json'; // ABI for the ProjectSubmission contract
+import ProjectSubmissionABI from '../scdata/ProjectSubmission.json'; // ABI for the ProjectSubmission contract
 import { ProjectSubmissionProjectSubmission } from '../scdata/deployed_addresses.json'; // Address of the deployed ProjectSubmission contract
-const ProjectSubmissionAddress=ProjectSubmissionProjectSubmission
+
+const ProjectSubmissionAddress = ProjectSubmissionProjectSubmission;
+
+const PINATA_API_KEY = import.meta.env.VITE_PINATA_API;
+const PINATA_SECRET_API_KEY = import.meta.env.VITE_PINATA_SECRET_API;
+
 const ProjectSubmition = () => {
   const [provider, setProvider] = useState(null);
   const [contract, setContract] = useState(null);
   const [userAddress, setUserAddress] = useState('');
-  const [pinataHash, setPinataHash] = useState('');
+  const [file, setFile] = useState(null); // File for uploading
   const [carbonTokenAmount, setCarbonTokenAmount] = useState('');
   const [submittedProjects, setSubmittedProjects] = useState([]);
+  const [pinataHash, setPinataHash] = useState(''); // Store the Pinata IPFS hash
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -52,6 +58,45 @@ const ProjectSubmition = () => {
     }
   };
 
+  const handleFileUpload = async () => {
+    if (!file) {
+      alert('Please select a file to upload.');
+      return;
+    }
+
+    const url = `https://api.pinata.cloud/pinning/pinFileToIPFS`;
+
+    // Create form data to send the file
+    let formData = new FormData();
+    formData.append('file', file);
+
+    try {
+      setLoading(true);
+
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${btoa(`${PINATA_API_KEY}:${PINATA_SECRET_API_KEY}`)}`, // Authorization using API key and secret
+        },
+        body: formData,
+      });
+
+      const result = await response.json();
+      if (response.ok) {
+        setPinataHash(result.IpfsHash); // Save the hash from the response
+        alert('File uploaded successfully to Pinata!');
+      } else {
+        console.error('Error uploading file to Pinata:', result);
+        alert('File upload failed. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error uploading file:', error);
+      alert('Error uploading file. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const handleSubmitProject = async () => {
     if (!pinataHash || !carbonTokenAmount || carbonTokenAmount <= 0) {
       alert('Please enter a valid Pinata hash and carbon token amount.');
@@ -64,8 +109,9 @@ const ProjectSubmition = () => {
       alert('Project submitted successfully!');
 
       // Clear input fields
-      setPinataHash('');
+      setFile(null);
       setCarbonTokenAmount('');
+      setPinataHash('');
 
       // Reload submitted projects
       await loadUserProjects(contract, userAddress);
@@ -81,14 +127,19 @@ const ProjectSubmition = () => {
       {/* Project Submission Form */}
       <div className="mb-8">
         <div className="mb-4">
-          <label className="block font-bold mb-1">Pinata IPFS Hash:</label>
+          <label className="block font-bold mb-1">Upload Project File (PDF):</label>
           <input
-            type="text"
-            value={pinataHash}
-            onChange={(e) => setPinataHash(e.target.value)}
+            type="file"
+            onChange={(e) => setFile(e.target.files[0])}
             className="border p-2 rounded w-full"
-            placeholder="Enter Pinata IPFS hash of the project"
           />
+          <button
+            onClick={handleFileUpload}
+            className="bg-blue-500 text-white py-2 px-4 mt-2 rounded"
+            disabled={loading}
+          >
+            {loading ? 'Uploading...' : 'Upload to Pinata'}
+          </button>
         </div>
 
         <div className="mb-4">
@@ -105,6 +156,7 @@ const ProjectSubmition = () => {
         <button
           onClick={handleSubmitProject}
           className="bg-blue-500 text-white py-2 px-4 rounded"
+          disabled={!pinataHash}
         >
           Submit Project
         </button>
