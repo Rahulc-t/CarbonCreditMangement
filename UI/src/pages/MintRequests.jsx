@@ -10,7 +10,7 @@ const MintRequests = () => {
   const [approvalContract, setApprovalContract] = useState(null);
   const [requests, setRequests] = useState([]);
   const [tokenAmount, setTokenAmount] = useState({});
-  const [loading, setLoading] = useState(false);
+  const [loadingRequestId, setLoadingRequestId] = useState(null); // Track loading state per request
 
   useEffect(() => {
     const loadContracts = async () => {
@@ -58,7 +58,7 @@ const MintRequests = () => {
       }
 
       // Filter only unreviewed requests
-      const unreviewedRequests = requestsArray.filter(request => !request.reviewed);
+      const unreviewedRequests = requestsArray.filter((request) => !request.reviewed);
       setRequests(unreviewedRequests);
     } catch (error) {
       console.error('Error loading requests:', error);
@@ -78,24 +78,24 @@ const MintRequests = () => {
     }
 
     try {
-      setLoading(true);
+      setLoadingRequestId(requestId); // Set loading for the specific request
 
       // Mint tokens to the requester
       const tx = await carbonTokenContract.mintTokens(requesterAddress, ethers.parseUnits(amount, 18));
       await tx.wait();
 
-      // Approve the request in the approval contract
+      // Approve the request in the approval contract and set approved to true
       await approvalContract.approveRequest(requestId);
 
       alert('Tokens minted and request approved.');
 
-      // Reload requests
+      // Reload requests after approval
       await loadRequests(approvalContract);
     } catch (error) {
       console.error('Error minting tokens or approving request:', error);
       alert('Error processing the request. Please try again.');
     } finally {
-      setLoading(false);
+      setLoadingRequestId(null); // Clear loading state after the request is processed
     }
   };
 
@@ -103,9 +103,9 @@ const MintRequests = () => {
     <div className="container mx-auto p-4">
       <h1 className="text-2xl font-bold mb-4">Pending Token Requests</h1>
 
-      {loading ? (
-        <p>Loading requests...</p>
-      ) : requests.length > 0 ? (
+      {requests.length === 0 ? (
+        <p>No pending requests at the moment.</p>
+      ) : (
         <div className="space-y-4">
           {requests.map((request) => (
             <div key={request.id} className="border p-4 rounded shadow-lg">
@@ -121,21 +121,20 @@ const MintRequests = () => {
                   onChange={(e) => handleTokenInput(request.id, e.target.value)}
                   className="border p-2 rounded w-full"
                   placeholder="Enter amount of tokens to mint"
+                  disabled={loadingRequestId === request.id}
                 />
               </div>
 
               <button
                 onClick={() => handleMint(request.id, request.requester)}
-                className="bg-green-500 text-white py-2 px-4 mt-2 rounded"
-                disabled={loading}
+                className={`bg-green-500 text-white py-2 px-4 mt-2 rounded ${loadingRequestId === request.id ? 'opacity-50' : ''}`}
+                disabled={loadingRequestId === request.id}
               >
-                {loading ? 'Processing...' : 'Mint Tokens'}
+                {loadingRequestId === request.id ? 'Processing...' : 'Mint Tokens'}
               </button>
             </div>
           ))}
         </div>
-      ) : (
-        <p>No pending requests at the moment.</p>
       )}
     </div>
   );
