@@ -8,6 +8,8 @@ import Homepage from './pages/Homepage'
 import ProjectNFTPage from './pages/ProjectNFTPage'
 import CarbRequestPage from './pages/CarbRequestPage'
 import SubmitDonation from './pages/SubmitDonation'
+import ViewAndDonate from './pages/ViewAndDonate'
+import ProjectSubmition from './pages/ProjectSubmition'
 function App() {
   const router=createBrowserRouter(createRoutesFromElements( 
     <>
@@ -20,6 +22,10 @@ function App() {
   <Route path='/list-project' element={<ProjectNFTPage/>}/>
   <Route path="/submit-carbon-token" element={<CarbRequestPage/>}/>
   <Route path="/list-donation" element={<SubmitDonation/>}/>
+  <Route path="/view-donation" element={<ViewAndDonate/>}/>
+  <Route path="/request-certificates" element={<ProjectSubmition/>}/>
+
+
 
 </Route>
 <Route path='/admin-dashboard' />
