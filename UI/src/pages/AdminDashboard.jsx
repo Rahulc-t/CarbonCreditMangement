@@ -16,7 +16,7 @@ const AdminDashboard = () => {
         
         
         <button 
-          onClick={() => handleNavigation('/submit-carbon-token')} 
+          onClick={() => handleNavigation('/mint-requests')} 
           className="bg-green-500 text-white font-bold py-3 px-6 rounded-lg hover:bg-green-600 transition duration-300"
         >
           Mint Token
