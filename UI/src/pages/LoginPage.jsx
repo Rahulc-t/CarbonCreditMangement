@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { ethers } from 'ethers';
-import {abi} from '../scdata/WalletLogin.json'; // Import the ABI for WalletLogin contract
-import {WalletLoginWalletLogin} from "../scdata/deployed_addresses.json"
+import { abi } from '../scdata/WalletLogin.json'; // Import the ABI for WalletLogin contract
+import { WalletLoginWalletLogin } from "../scdata/deployed_addresses.json";
 import { useNavigate } from 'react-router-dom';
+
 const LoginPage = () => {
-  const navigate=useNavigate()
+  const navigate = useNavigate();
   const [account, setAccount] = useState(null);
   const [username, setUsername] = useState('');
   const [isUserRegistered, setIsUserRegistered] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [isAdmin,setIsAdmin]=useState(null);
+  const [adminAddr, setAdminAddr] = useState('');
   const walletLoginContractAddress = '0xYourContractAddress'; // Replace with your deployed contract address
 
   // Function to connect MetaMask
@@ -24,9 +25,10 @@ const LoginPage = () => {
       const walletLoginContract = new ethers.Contract(WalletLoginWalletLogin, abi, signer);
       const isRegistered = await walletLoginContract.isUser(address);
       setIsUserRegistered(isRegistered);
-      const isAdmin = await walletLoginContract.admin();
-      // console.log(isAdmin);
-      setIsAdmin(isAdmin);
+
+      // Fetch the admin address
+      const adminAddress = await walletLoginContract.admin();
+      setAdminAddr(adminAddress); // Set the admin address after fetching
     } else {
       alert('Please install MetaMask to use this feature.');
     }
@@ -55,14 +57,17 @@ const LoginPage = () => {
   };
 
   useEffect(() => {
-    
-    if (account && isUserRegistered) {
-      console.log(isAdmin);
-      
-      alert('Welcome back, redirecting to profile page...');
-     navigate("/homepage") // Redirect to profile page logic here
+    // Ensure both account and adminAddr are set before checking if the user is an admin
+    if (account && adminAddr && isUserRegistered) {
+      if (adminAddr.toLowerCase() === account.toLowerCase()) {
+        alert('Welcome back, Admin. Redirecting to admin dashboard...');
+        navigate("/admin-dashboard"); // Redirect to admin dashboard if user is admin
+      } else {
+        alert('Welcome back, redirecting to profile page...');
+        navigate("/homepage"); // Redirect to homepage for regular users
+      }
     }
-  }, [account, isUserRegistered, isAdmin]);
+  }, [account, isUserRegistered, adminAddr, navigate]);
 
   return (
     <div className="min-h-screen flex flex-col justify-center items-center bg-green-100">
