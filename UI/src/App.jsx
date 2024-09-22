@@ -12,6 +12,7 @@ import ViewAndDonate from './pages/ViewAndDonate'
 import ProjectSubmition from './pages/ProjectSubmition'
 import AdminDashboard from './pages/AdminDashboard'
 import MintRequests from './pages/MintRequests'
+import ProjectRequests from './pages/ProjectRequests'
 function App() {
   const router=createBrowserRouter(createRoutesFromElements( 
     <>
@@ -32,6 +33,7 @@ function App() {
 </Route>
 <Route path='/admin-dashboard' element={<AdminDashboard/>} />
 <Route path='/mint-requests' element={<MintRequests/>}/>
+<Route path='/project-requests' element={<ProjectRequests/>}/>
 </>))
   return (
     <>
