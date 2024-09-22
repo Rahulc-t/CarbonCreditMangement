@@ -24,7 +24,7 @@ const AdminDashboard = () => {
         
         
         <button 
-          onClick={() => handleNavigation('/list-carbon-token')} 
+          onClick={() => handleNavigation('/project-requests')} 
           className="bg-blue-500 text-white font-bold py-3 px-6 rounded-lg hover:bg-blue-600 transition duration-300"
         >
           Issue Certificate
