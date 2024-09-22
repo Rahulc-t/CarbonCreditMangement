@@ -9,6 +9,7 @@ const LoginPage = () => {
   const [username, setUsername] = useState('');
   const [isUserRegistered, setIsUserRegistered] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [isAdmin,setIsAdmin]=useState(null);
   const walletLoginContractAddress = '0xYourContractAddress'; // Replace with your deployed contract address
 
   // Function to connect MetaMask
@@ -23,6 +24,9 @@ const LoginPage = () => {
       const walletLoginContract = new ethers.Contract(WalletLoginWalletLogin, abi, signer);
       const isRegistered = await walletLoginContract.isUser(address);
       setIsUserRegistered(isRegistered);
+      const isAdmin = await walletLoginContract.admin();
+      // console.log(isAdmin);
+      setIsAdmin(isAdmin);
     } else {
       alert('Please install MetaMask to use this feature.');
     }
@@ -51,11 +55,14 @@ const LoginPage = () => {
   };
 
   useEffect(() => {
+    
     if (account && isUserRegistered) {
+      console.log(isAdmin);
+      
       alert('Welcome back, redirecting to profile page...');
      navigate("/homepage") // Redirect to profile page logic here
     }
-  }, [account, isUserRegistered]);
+  }, [account, isUserRegistered, isAdmin]);
 
   return (
     <div className="min-h-screen flex flex-col justify-center items-center bg-green-100">
