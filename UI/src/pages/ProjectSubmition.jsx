@@ -5,8 +5,8 @@ import { ProjectSubmissionProjectSubmission } from '../scdata/deployed_addresses
 
 const ProjectSubmissionAddress = ProjectSubmissionProjectSubmission;
 
-const PINATA_API_KEY = import.meta.env.VITE_PINATA_API;
-const PINATA_SECRET_API_KEY = import.meta.env.VITE_PINATA_SECRET_API;
+const pinataApi = import.meta.env.VITE_PINATA_API;
+const pinataSApi = import.meta.env.VITE_PINATA_SECRET_API;
 
 const ProjectSubmition = () => {
   const [provider, setProvider] = useState(null);
@@ -73,13 +73,21 @@ const ProjectSubmition = () => {
     try {
       setLoading(true);
 
-      const response = await fetch(url, {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${btoa(`${PINATA_API_KEY}:${PINATA_SECRET_API_KEY}`)}`, // Authorization using API key and secret
-        },
-        body: formData,
-      });
+    //   const response = await fetch(url, {
+    //     method: 'POST',
+    //     headers: {
+    //       'Authorization': `Bearer ${btoa(`${PINATA_API_KEY}:${PINATA_SECRET_API_KEY}`)}`, // Authorization using API key and secret
+    //     },
+    //     body: formData,
+    //   });
+    const response = await fetch('https://api.pinata.cloud/pinning/pinFileToIPFS', {
+            method: 'POST',
+            body: formData,
+            headers: {
+                pinata_api_key: pinataApi,
+                pinata_secret_api_key: pinataSApi,
+            },
+        });
 
       const result = await response.json();
       if (response.ok) {
