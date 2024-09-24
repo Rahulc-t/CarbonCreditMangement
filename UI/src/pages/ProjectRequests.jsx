@@ -69,7 +69,7 @@ const ProjectRequests = () => {
 
       // Burn the tokens instead of minting
       await projectSubmissionContract.approveProject(projectId);
-      await carbonTokenContract.burn(project.submitter, project.carbonTokenAmount);
+      await carbonTokenContract.burnTokens(project.submitter, project.carbonTokenAmount);
 
       alert("Project approved and tokens burned!");
     } catch (error) {
