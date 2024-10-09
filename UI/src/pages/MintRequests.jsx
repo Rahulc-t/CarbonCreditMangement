@@ -57,9 +57,14 @@ const MintRequests = () => {
         });
       }
 
-      // Filter only unreviewed requests
-      const unreviewedRequests = requestsArray.filter((request) => !request.reviewed);
-      setRequests(unreviewedRequests);
+      // Sort requests: unapproved and unreviewed first
+      const sortedRequests = requestsArray.sort((a, b) => {
+        if (!a.approved && !a.reviewed) return -1; // a should come before b
+        if (a.approved || a.reviewed) return 1; // b should come before a
+        return 0;
+      });
+
+      setRequests(sortedRequests);
     } catch (error) {
       console.error('Error loading requests:', error);
     }
@@ -89,8 +94,15 @@ const MintRequests = () => {
 
       alert('Tokens minted and request approved.');
 
-      // Reload requests after approval
-      await loadRequests(approvalContract);
+      // Update the request status locally
+      setRequests((prevRequests) =>
+        prevRequests.map((request) =>
+          request.id === requestId
+            ? { ...request, approved: true, reviewed: true } // Set approved and reviewed to true
+            : request
+        )
+      );
+
     } catch (error) {
       console.error('Error minting tokens or approving request:', error);
       alert('Error processing the request. Please try again.');
@@ -100,38 +112,67 @@ const MintRequests = () => {
   };
 
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Pending Token Requests</h1>
+    <div className="container mx-auto p-6 max-w-5xl">
+      <h1 className="text-3xl font-bold text-gray-800 mb-6 text-center">Carbon Token Requests</h1>
 
       {requests.length === 0 ? (
-        <p>No pending requests at the moment.</p>
+        <p className="text-center text-gray-500">No pending requests at the moment.</p>
       ) : (
-        <div className="space-y-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {requests.map((request) => (
-            <div key={request.id} className="border p-4 rounded shadow-lg">
-              <p><strong>Requester Address:</strong> {request.requester}</p>
-              <p><strong>Pinata IPFS Hash:</strong> {request.pinataHash}</p>
-              <p><strong>Approved:</strong> {request.approved ? 'Yes' : 'No'}</p>
-              <p><strong>Reviewed:</strong> {request.reviewed ? 'Yes' : 'No'}</p>
+            <div key={request.id} className="bg-white shadow-md rounded-lg p-6">
+              <div className="mb-4">
+                {/* <h2 className="text-lg font-semibold text-gray-700">Request #{request.id}</h2> */}
+                <p className="text-sm text-gray-500 break-all"><strong>Requester Address:</strong> {request.requester}</p>
+                <p className="text-sm text-gray-500 break-all">
+  <strong>Certificate URL:</strong>{" "}
+  <a
+    href={`https://coral-fancy-badger-36.mypinata.cloud/ipfs/${request.pinataHash}`}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="text-blue-600 hover:underline"
+  >
+    https://coral-fancy-badger-36.mypinata.cloud/ipfs/{request.pinataHash}
+  </a>
+</p>
 
-              <div className="mt-2">
-                <input
-                  type="number"
-                  value={tokenAmount[request.id] || ''}
-                  onChange={(e) => handleTokenInput(request.id, e.target.value)}
-                  className="border p-2 rounded w-full"
-                  placeholder="Enter amount of tokens to mint"
-                  disabled={loadingRequestId === request.id}
-                />
               </div>
 
-              <button
-                onClick={() => handleMint(request.id, request.requester)}
-                className={`bg-green-500 text-white py-2 px-4 mt-2 rounded ${loadingRequestId === request.id ? 'opacity-50' : ''}`}
-                disabled={loadingRequestId === request.id}
-              >
-                {loadingRequestId === request.id ? 'Processing...' : 'Mint Tokens'}
-              </button>
+              <div className="flex items-center mb-4">
+                <div className="mr-4">
+                  <span className={`inline-block rounded-full px-3 py-1 text-xs font-semibold ${request.approved ? 'bg-green-200 text-green-800' : 'bg-yellow-200 text-yellow-800'}`}>
+                    Approved: {request.approved ? 'Yes' : 'No'}
+                  </span>
+                </div>
+                <div>
+                  <span className={`inline-block rounded-full px-3 py-1 text-xs font-semibold ${request.reviewed ? 'bg-blue-200 text-blue-800' : 'bg-red-200 text-red-800'}`}>
+                    Reviewed: {request.reviewed ? 'Yes' : 'No'}
+                  </span>
+                </div>
+              </div>
+
+              {!request.approved && !request.reviewed && (
+                <>
+                  <div className="mb-4">
+                    <input
+                      type="number"
+                      value={tokenAmount[request.id] || ''}
+                      onChange={(e) => handleTokenInput(request.id, e.target.value)}
+                      className="w-full border border-gray-300 p-2 rounded-lg focus:ring focus:ring-indigo-200 focus:border-indigo-500"
+                      placeholder="Enter amount of tokens to mint"
+                      disabled={loadingRequestId === request.id}
+                    />
+                  </div>
+
+                  <button
+                    onClick={() => handleMint(request.id, request.requester)}
+                    className={`w-full bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg transition-all duration-200 ease-in-out ${loadingRequestId === request.id ? 'opacity-50 cursor-not-allowed' : ''}`}
+                    disabled={loadingRequestId === request.id}
+                  >
+                    {loadingRequestId === request.id ? 'Processing...' : 'Mint Tokens'}
+                  </button>
+                </>
+              )}
             </div>
           ))}
         </div>
